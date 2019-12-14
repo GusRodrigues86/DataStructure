@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.gustavo.dataStructure.Linear.MyList;
-import com.gustavo.dataStructure.Linear.Sequential.MyLinkedList;
+import com.gustavo.dataStructure.Linear.Sequential.MySinglyLinkedList;
 
 /**
  * @author Gustavo
@@ -19,7 +19,7 @@ public abstract class MyListTest {
 	
 	@BeforeEach
 	void setup() {
-		this.list = new MyLinkedList<>();
+		this.list = new MySinglyLinkedList<>();
 	}
 	@AfterEach
 	void dispose() {

@@ -1,15 +1,6 @@
-/*
-   Description of this class
-   
-   Revision History
-  		Gustavo, 2019.12.12: Created
- */
 package com.gustavo.dataStructure.Linear.Sequential;
 
-import java.security.DrbgParameters.NextBytes;
-
 import com.gustavo.dataStructure.Linear.MyList;
-import com.sun.jdi.InvalidTypeException;
 
 /**
  * A singly linked list
@@ -17,7 +8,7 @@ import com.sun.jdi.InvalidTypeException;
  * @author Gustavo
  *
  */
-public class MyLinkedList<E> implements MyList<E> {
+public class MySinglyLinkedList<E> implements MyList<E> {
 	private int size = 0;
 	private Node<E> first;
 
@@ -30,7 +21,7 @@ public class MyLinkedList<E> implements MyList<E> {
 	/**
 	 * Constructs an empty Single Linked List
 	 */
-	public MyLinkedList() {
+	public MySinglyLinkedList() {
 		this.first = new EmptyNode<E>();
 		checkRep();
 	}
@@ -46,18 +37,8 @@ public class MyLinkedList<E> implements MyList<E> {
 
 	@Override
 	public boolean add(E e) {
-		if (e != null) {
-			// if size == 0, starts with the head.
-			if (size == 0) {
-				addFirstElement(e);
-				return true;
-			} else {
-				// if size > 1 and add not defined not defined, always append to the end.
-				addToTheTail(e);
-				return true;
-			}
-		}
-		return false;
+		// O(1) operation at the head.
+		return addFirstElement(e);
 	}
 
 	private boolean addFirstElement(E e) {
@@ -68,45 +49,41 @@ public class MyLinkedList<E> implements MyList<E> {
 			size++;
 			return true;
 		}
-		throw new NullPointerException();
-	}
-
-	private boolean addToTheTail(E e) {
-		// best case O(1), worst case, O(n).
-		if (e != null) {
-			// empty list, starts on head.
-			if (this.isEmpty()) {
-				addFirstElement(e);
-			}
-			
-			Node<E> nextNode = this.first.next;
-			// next node until last node.
-			while(!nextNode.isLast()) {
-				nextNode = nextNode.next;
-			}
-			Node<E> newTailNode = new Node<E>(e, new EmptyNode<E>());
-			nextNode = newTailNode;
-			size++;
-			return true;
-		}
 		return false;
 	}
 
 	@Override
 	public boolean remove(E e) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (e == null) {
+			return false;
+		}
+		// Operation cost O(1)
+		return removeFirst();
+	}
+	private boolean removeFirst() {
+		if (this.first.isEmpty()) {
+			// the list is empty. no operation
+			checkRep();
+			return false;
+		}
+		Node<E> firstNode = first.next; // next will become 1st.
+		first = firstNode;
+		size--;
+		checkRep();
+		return true;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		// O(1) operation.
+		this.first = new EmptyNode<E>();
+		checkRep();
 	}
 
 	@Override
 	public int size() {
 		checkRep();
+		// O(1) operation
 		return this.size;
 	}
 
@@ -151,6 +128,7 @@ public class MyLinkedList<E> implements MyList<E> {
 
 		/**
 		 * Construct a Node that knows the next element.
+		 * 
 		 * @param item to be inserted
 		 * @param next the next element of the list.
 		 */

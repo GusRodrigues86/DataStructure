@@ -1,9 +1,3 @@
-/*
-   Description of this class
-   
-   Revision History
-  		Gustavo, 2019.12.12: Created
- */
 package com.gustavo.dataStructure.Linear;
 
 /**
