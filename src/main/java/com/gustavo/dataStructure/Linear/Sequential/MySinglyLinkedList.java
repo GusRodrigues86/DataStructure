@@ -27,26 +27,29 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 	}
 
 	private void checkRep() {
-		if (size == 0 && !first.isLast()) {
+		if (size == 0 && !first.isEmpty()) {
 			throw new RuntimeException("Invalid list");
-		}
-		if (size > 1 && first.isLast()) {
+		} else if (size == 1 && !this.first.next.isLast()) {
+			throw new RuntimeException("Invalid list");
+		} else if (size > 1 && !this.first.isLast()) {
 			throw new RuntimeException("Invalid list");
 		}
 	}
 
 	@Override
 	public boolean add(E e) {
-		// O(1) operation at the head.
+		
 		return addFirstElement(e);
 	}
 
 	private boolean addFirstElement(E e) {
+		// O(1) operation at the head.
 		checkRep();
 		if (e != null) {
 			Node<E> oldNode = this.first; // copy of actual first node.
 			this.first = new Node<>(e, oldNode); // actual first node becomes the next.
 			size++;
+			checkRep();
 			return true;
 		}
 		return false;
@@ -57,9 +60,13 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 		if (e == null) {
 			return false;
 		}
-		// Operation cost O(1)
-		return removeFirst();
+		// Operation cost O(n) (best case O(1), worst, O(n)
+		if (first.item.toString().equalsIgnoreCase(e.toString())) {
+			return removeFirst();			
+		}
+		return false;
 	}
+
 	private boolean removeFirst() {
 		if (this.first.isEmpty()) {
 			// the list is empty. no operation
@@ -156,8 +163,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 		}
 
 		public boolean isLast() {
-			checkRep();
-			return (next == null) ? true : false;
+			return (next == null) ? true : next.isLast();
 		}
 
 		@Override
@@ -172,6 +178,16 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 
 		public EmptyNode() {
 			super(null, null);
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return true;
+		}
+
+		@Override
+		public boolean isLast() {
+			return true;
 		}
 
 	}
