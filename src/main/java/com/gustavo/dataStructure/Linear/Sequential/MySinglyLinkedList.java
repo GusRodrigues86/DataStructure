@@ -57,26 +57,53 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 
 	@Override
 	public boolean remove(E e) {
+		final E element = e; 
 		if (e == null) {
 			return false;
 		}
-		// Operation cost O(n) (best case O(1), worst, O(n)
-		if (first.item.toString().equalsIgnoreCase(e.toString())) {
-			return removeFirst();			
+		if (this.isEmpty()) {
+			return false;
 		}
-		return false;
+		Node<E> actual = this.first;
+		// Operation cost O(n) (best case O(1), worst, O(n)
+		if (actual.item.equals(element)) {
+			return removeFirst();			
+		} else {
+			return unlinkElement(element);
+		}
 	}
 
 	private boolean removeFirst() {
 		if (this.first.isEmpty()) {
 			// the list is empty. no operation
-			checkRep();
 			return false;
 		}
-		Node<E> firstNode = first.next; // next will become 1st.
+		final Node<E> firstNode = first.next; // next will become 1st.
 		first = firstNode;
 		size--;
 		checkRep();
+		return true;
+	}
+	
+	private boolean unlinkElement(E e) {
+		final E element = e; 
+		boolean checker = true;
+		Node<E> actual = this.first;
+		Node<E> previous;
+		int counter = 0;
+		do {
+			checker = !actual.item.equals(element);
+			previous = actual;
+			actual = actual.next;
+			counter++;
+			
+			if (counter > size) { // list doesn't contains element
+				return false;
+			}
+		}
+		while (checker);
+		// found the item, now unlink.
+		previous.next = actual.next;
 		return true;
 	}
 
@@ -102,16 +129,81 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 
 	@Override
 	public boolean contains(E e) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (e == null) {
+			return false;
+		}
+		final E element = e;
+		Node<E> node = first;
+		for (int i = 0; i < size; i++) {
+			if (node.item.equals(element)) {
+				return true;
+			} else {
+				node = node.next;
+			}
+		}
+			
+		return false;
 	}
 
 	@Override
 	public E get(int index) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (this.isEmpty() || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		// O(1)
+		if (index == 0) {
+			return first.item;
+		} // O(1)
+		if (index == 1) {
+			if (first.isEmpty()) {
+				throw new IndexOutOfBoundsException();
+			}
+			return first();
+		}
+		// Remaining cases: O(1) [Best] to O(n) [Worst]
+		Node<E> actual = this.first;
+		int counter = 0;
+		while (counter < index) {
+			actual = actual.next;
+			counter++;
+		}
+		
+		return actual.item;
+	}
+		
+	@Override
+	public E first() {
+		checkRep();
+		return this.first.item;
 	}
 
+	@Override
+	public E last() {
+		// O(1) if size == 1, then O(n) worst case
+		checkRep();
+		int counter = 0;
+		Node<E> element = this.first;
+		while (counter < (size - 1)) {
+			element = element.next;
+			counter++;
+		}
+		return element.item;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer nodes = new StringBuffer();
+		Node<E> node = first;
+		for (int i = 0; i < size; i++) {
+			if (i == (size -1)) {
+				nodes.append(node.item);
+			} else {
+				nodes.append(node.item + ", ");				
+			}
+			node = node.next;
+		}
+		return "["+ nodes.toString() +"]";
+	}
 	/**
 	 * A node holds the item and the next item.
 	 * <p>
@@ -191,5 +283,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 		}
 
 	}
+
+	
 
 }

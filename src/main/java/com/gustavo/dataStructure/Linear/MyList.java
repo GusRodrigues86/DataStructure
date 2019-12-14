@@ -77,4 +77,16 @@ public interface MyList<E> {
 	 * @throws IndexOutOfBoundsException if ({@code index < 0 || index >= size()})
 	 */
 	E get(int index);
+	
+	/**
+	 * 
+	 * @return the element at the head of the list.
+	 */
+	E first();
+	
+	/**
+	 * 
+	 * @return the element at the tail of the list.
+	 */
+	E last();
 }

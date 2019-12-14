@@ -1,7 +1,8 @@
 package com.gustavo.dataStructure;
 
-import static org.hamcrest.core.Is.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,10 @@ public abstract class MyListTest {
 		this.list = null;
 	}
 
-	// testing observers
+	/*
+	 * testing observers
+	 */
+	// size
 	@Test
 	void testEmptyListHasSizeZero() {
 		// Assemble
@@ -45,9 +49,40 @@ public abstract class MyListTest {
 		// Assert
 		assertTrue(actual);
 	}
+	// contains
+	
+	@Test
+	void testContainsReturnFalseOnAnEmptyList() {
+		// act
+		boolean actual = list.contains("Test");
+		//
+		assertFalse(actual);
+	}
+	
+	@Test
+	void testContainsReturnFalseIfNotOnList() {
+		// assemble
+		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+		// act
+		boolean actual = list.contains("Not on list");
+		// assemble
+		assertFalse(actual);
+	}
+	
+	@Test
+	void testContainsReturnTrueIfOnTheList() {
+		// assemble
+		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+		// act
+		boolean actual = list.contains("Test");
+		// assemble
+		assertTrue(actual);
+	}
 
-	// testing mutators
-	// testing addition
+	/*
+	 * testing mutators
+	 */
+	// testing add
 	@Test
 	void testAddElementReturnTrueAndIncreaseSize() {
 		// Assemble
@@ -104,14 +139,17 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testRemoveInvalidElementReturnFalseAndSizeRemainsTheSame() {
+	void testRemoveInvalidElementThrowsNPE() {
+		// assemble
+		Arrays.asList("Test", "Another Test", "One More").forEach((e) -> list.add(e));
+		int originalSize = list.size();
+		// act & assert
+		assertThrows(NullPointerException.class, () -> list.remove(" "));
 		// act
-		boolean actual = list.remove(" ");
-		int size = list.size();
+		int finalSize = list.size();
 		// assert
-		assertFalse(actual);
-		assertEquals(0, size);
-		assertTrue(list.isEmpty());
+		assertEquals(originalSize, finalSize);
+
 	}
 
 	@Test
@@ -123,7 +161,86 @@ public abstract class MyListTest {
 
 	@Test
 	void testRemoveElementReturnTrueAndSizeDecrease() {
-		String element = "Test";
-		String element2 = "Another Test";
+		// assemble
+		Arrays.asList("Test", "Another Test", "One More").forEach((e) -> list.add(e));
+		String element = "One More";
+		int originalSize = list.size();
+
+		// act
+		boolean isSucessful = list.remove(element);
+		int finalSize = list.size();
+
+		// assert
+		assertTrue(isSucessful);
+		assertEquals(2, finalSize);
+		assertNotEquals(originalSize, finalSize);
+	}
+
+	/*
+	 * testing producers
+	 */
+	// get
+	@Test
+	void testElementRetrival() {
+		// assemble
+		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+		// Act
+		String actual = list.get(3);
+		// Assert
+		assertEquals("Test", actual);
+	}
+
+	@Test
+	void testElementRetrivalFromEmptyListThrowsIndexOutOfBounds() {
+		// assert
+		assertThrows(IndexOutOfBoundsException.class, () -> list.get(0));
+	}
+
+	@Test
+	void testElementRetrivalWithInvalidIndexThrowsIndexOutOfBounds() {
+		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+		// assert
+		assertThrows(IndexOutOfBoundsException.class, () -> list.get(10));
+	}
+
+	// first
+	@Test
+	void testFirstOnAnEmptyListReturnNull() {
+		// act
+		String actual = list.first();
+		// assert
+		assertNull(actual);
+	}
+
+	@Test
+	void testFirstItemIsTheLastInserted() {
+		// assemble
+		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+
+		// act
+		String actual = list.first();
+		// assert
+		assertEquals("One More", actual);
+
+	}
+
+	// last
+	@Test
+	void testLastOnAnEmptyListReturnNull() {
+		// act
+		String actual = list.last();
+		// assert
+		assertNull(actual);
+	}
+
+	@Test
+	void testLastIsTheFirstInserted() {
+		// assemble
+		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+
+		// act
+		String actual = list.last();
+		// assert
+		assertEquals("Test", actual);
 	}
 }
