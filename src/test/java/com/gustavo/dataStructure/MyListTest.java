@@ -16,7 +16,7 @@ import com.gustavo.dataStructure.Linear.Sequential.MySinglyLinkedList;
  *
  */
 public abstract class MyListTest {
-	private MyList<String> list;
+	public MyList<String> list;
 
 	@BeforeEach
 	void setup() {

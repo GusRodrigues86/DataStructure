@@ -9,8 +9,8 @@ import com.gustavo.dataStructure.Linear.MyList;
  *
  */
 public class MySinglyLinkedList<E> implements MyList<E> {
-	private int size = 0;
-	private Node<E> first;
+	protected int size = 0;
+	protected Node<E> first;
 
 	// Abstract function
 	// AF(x) = Node != null AND size >= 0
@@ -31,7 +31,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 			throw new RuntimeException("Invalid list");
 		} else if (size == 1 && !this.first.next.isLast()) {
 			throw new RuntimeException("Invalid list");
-		} else if (size > 1 && !this.first.isLast()) {
+		} else if (size > 1 && this.first.isLast()) {
 			throw new RuntimeException("Invalid list");
 		}
 	}
@@ -158,7 +158,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 			if (first.isEmpty()) {
 				throw new IndexOutOfBoundsException();
 			}
-			return first();
+			return first.next.item;
 		}
 		// Remaining cases: O(1) [Best] to O(n) [Worst]
 		Node<E> actual = this.first;
@@ -217,7 +217,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 	 *
 	 * @param <E> The type of the node.
 	 */
-	private static class Node<E> {
+	protected static class Node<E> {
 		E item;
 		Node<E> next;
 		// AF
@@ -241,12 +241,8 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 			if (item == null) {
 				if (next != null)
 					throw new NullPointerException("invalid node");
-			} else {
-				if (!next.isLast()) {
-					throw new RuntimeException("Invalid node");
-				}
-				// do nothing
 			}
+			// do nothing
 		}
 
 		public boolean isEmpty() {
@@ -255,7 +251,8 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 		}
 
 		public boolean isLast() {
-			return (next == null) ? true : next.isLast();
+			return (next == null) ? true : false;
+			// return isLast;
 		}
 
 		@Override
