@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gustavo.dataStructure.Linear.MyList;
 import com.gustavo.dataStructure.Linear.Sequential.MyCircularlyLinkedList;
-import com.gustavo.dataStructure.Linear.Sequential.MySinglyLinkedList;
+import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
 
 /**
  * @author Gustavo
@@ -43,7 +43,7 @@ public class MyCircularlyLinkedListTest extends MyListTest {
 	// start from a list
 	@Test
 	void testConvertingAMySinglyLinkedListIntoMyCircularlyList() {
-		MyList<String> otherList = new MySinglyLinkedList<>();
+		MyList<String> otherList = new MySingleLinkedList<>();
 		Arrays.asList("Test", "Test case", "Another", "Other").forEach(e -> otherList.add(e));
 		int oSize = otherList.size();
 		// act

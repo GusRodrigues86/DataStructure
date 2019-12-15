@@ -6,14 +6,14 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import com.gustavo.dataStructure.Linear.Sequential.MySinglyLinkedList;
+import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
 
 /**
  * @author Gustavo
  *
  */
 public class MySinglyLinkedListTest extends MyListTest {
-	private MySinglyLinkedList<String> list = new MySinglyLinkedList<>();
+	private MySingleLinkedList<String> list = new MySingleLinkedList<>();
 	
 	@Test
 	void testToStringOnEmptyList() {

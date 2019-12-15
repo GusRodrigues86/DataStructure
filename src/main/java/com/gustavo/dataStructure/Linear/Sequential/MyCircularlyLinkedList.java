@@ -18,7 +18,7 @@ import com.gustavo.dataStructure.Linear.MyList;
  * @author Gustavo
  *
  */
-public class MyCircularlyLinkedList<E> extends MySinglyLinkedList<E> {
+public class MyCircularlyLinkedList<E> extends MySingleLinkedList<E> {
 	/**
 	 * Constructs a new Circular List
 	 */

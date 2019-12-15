@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.gustavo.dataStructure.Linear.MyList;
-import com.gustavo.dataStructure.Linear.Sequential.MySinglyLinkedList;
+import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
 
 /**
  * @author Gustavo
@@ -20,7 +20,7 @@ public abstract class MyListTest {
 
 	@BeforeEach
 	void setup() {
-		this.list = new MySinglyLinkedList<>();
+		this.list = new MySingleLinkedList<>();
 	}
 
 	@AfterEach
@@ -50,7 +50,7 @@ public abstract class MyListTest {
 		assertTrue(actual);
 	}
 	// contains
-	
+
 	@Test
 	void testContainsReturnFalseOnAnEmptyList() {
 		// act
@@ -58,7 +58,7 @@ public abstract class MyListTest {
 		//
 		assertFalse(actual);
 	}
-	
+
 	@Test
 	void testContainsReturnFalseIfNotOnList() {
 		// assemble
@@ -68,7 +68,7 @@ public abstract class MyListTest {
 		// assemble
 		assertFalse(actual);
 	}
-	
+
 	@Test
 	void testContainsReturnTrueIfOnTheList() {
 		// assemble
@@ -82,6 +82,17 @@ public abstract class MyListTest {
 	/*
 	 * testing mutators
 	 */
+	// testing clear
+	@Test
+	void testClearReturnsAnEmptyList() {
+		// assemble
+		// Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
+		// act
+		list.clear();
+		// assemble
+		assertTrue(list.isEmpty());
+	}
+
 	// testing add
 	@Test
 	void testAddElementReturnTrueAndIncreaseSize() {

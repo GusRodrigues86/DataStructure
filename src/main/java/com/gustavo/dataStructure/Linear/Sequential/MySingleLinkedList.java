@@ -8,7 +8,7 @@ import com.gustavo.dataStructure.Linear.MyList;
  * @author Gustavo
  *
  */
-public class MySinglyLinkedList<E> implements MyList<E> {
+public class MySingleLinkedList<E> implements MyList<E> {
 	protected int size = 0;
 	protected Node<E> first;
 
@@ -21,7 +21,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 	/**
 	 * Constructs an empty Single Linked List
 	 */
-	public MySinglyLinkedList() {
+	public MySingleLinkedList() {
 		this.first = new EmptyNode<E>();
 		checkRep();
 	}
@@ -111,6 +111,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 	public void clear() {
 		// O(1) operation.
 		this.first = new EmptyNode<E>();
+		size = 0;
 		checkRep();
 	}
 
