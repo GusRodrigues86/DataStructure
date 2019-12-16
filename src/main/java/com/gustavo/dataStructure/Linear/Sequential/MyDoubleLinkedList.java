@@ -1,9 +1,3 @@
-/*
-   Description of this class
-   
-   Revision History
-  		Gustavo, 2019.12.14: Created
- */
 package com.gustavo.dataStructure.Linear.Sequential;
 
 import java.util.Objects;
@@ -11,6 +5,7 @@ import java.util.Objects;
 import com.gustavo.dataStructure.Linear.MyList;
 
 /**
+ * Implementation of a Double Linked List Data Structure.
  * @author Gustavo
  *
  */
