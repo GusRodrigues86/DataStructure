@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.gustavo.dataStructure.Linear.MyList;
-import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
+
 
 /**
  * @author Gustavo
@@ -17,10 +17,12 @@ import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
  */
 public abstract class MyListTest {
 	public MyList<String> list;
+	
+	public abstract MyList<String> emptyList();
 
 	@BeforeEach
 	void setup() {
-		this.list = new MySingleLinkedList<>();
+		this.list = emptyList();
 	}
 
 	@AfterEach
@@ -150,22 +152,24 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testRemoveInvalidElementThrowsNPE() {
+	void testRemoveInvalidElementReturnsFalse() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "One More").forEach((e) -> list.add(e));
 		int originalSize = list.size();
-		// act & assert
-		assertThrows(NullPointerException.class, () -> list.remove(" "));
+		// act
+		boolean actual = list.remove(" ");
+		// assert
 		// act
 		int finalSize = list.size();
 		// assert
+		assertFalse(actual);
 		assertEquals(originalSize, finalSize);
 
 	}
 
 	@Test
-	void testRemoveNullThrowsExceptionAndSizeRemains() {
-		assertFalse(list.remove(null));
+	void testRemoveNullReturnFalseAndSizeRemains() {
+		assertThrows(NullPointerException.class, () -> list.remove(null));
 		assertTrue(list.isEmpty());
 		assertEquals(0, list.size());
 	}

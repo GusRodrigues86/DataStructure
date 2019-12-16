@@ -8,6 +8,7 @@ package com.gustavo.dataStructure;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import com.gustavo.dataStructure.Linear.MyList;
 import com.gustavo.dataStructure.Linear.Sequential.MyDoubleLinkedList;
 
 /**
@@ -16,10 +17,9 @@ import com.gustavo.dataStructure.Linear.Sequential.MyDoubleLinkedList;
  */
 public class MyDoubleLinkedListTest extends MyListTest {
 	
-	@BeforeEach
-	void init() {
-		super.list = new MyDoubleLinkedList<>(); 
-	}
-	
+	@Override
+	public MyList<String> emptyList() {
+		return new MyDoubleLinkedList<>();
+	}	
 	
 }

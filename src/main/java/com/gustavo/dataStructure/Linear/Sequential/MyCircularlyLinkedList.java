@@ -34,7 +34,7 @@ public class MyCircularlyLinkedList<E> extends MySingleLinkedList<E> {
 	}
 
 	/**
-	 * @return
+	 * @return true if able to rotate the list.
 	 */
 	public boolean rotate() {
 		if (this.isEmpty()) {

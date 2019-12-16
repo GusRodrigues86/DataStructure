@@ -26,18 +26,17 @@ import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
  */
 public class MyCircularlyLinkedListTest extends MyListTest {
 
-	private MyCircularlyLinkedList<String> cList;
-
-	@BeforeEach
-	void init() {
-		list = new MyCircularlyLinkedList<>();
-		cList = new MyCircularlyLinkedList<>();
+	private MyCircularlyLinkedList<String> cList = new MyCircularlyLinkedList<>();
+	
+	@Override
+	public MyList<String> emptyList() {
+		return new MyCircularlyLinkedList<>();
 	}
 
 	@AfterEach
 	void discard() {
 		list = null;
-		cList = null;
+		list = null;
 	}
 
 	// start from a list
@@ -47,8 +46,8 @@ public class MyCircularlyLinkedListTest extends MyListTest {
 		Arrays.asList("Test", "Test case", "Another", "Other").forEach(e -> otherList.add(e));
 		int oSize = otherList.size();
 		// act
-		cList = new MyCircularlyLinkedList<>(otherList);
-		int cSize = cList.size();
+		list = new MyCircularlyLinkedList<>(otherList);
+		int cSize = list.size();
 		// assert
 		assertEquals(oSize, cSize);
 	}
@@ -118,5 +117,7 @@ public class MyCircularlyLinkedListTest extends MyListTest {
 		assertEquals(oldThird, third);
 		assertEquals(oldTail, tail);
 	}
+
+
 
 }

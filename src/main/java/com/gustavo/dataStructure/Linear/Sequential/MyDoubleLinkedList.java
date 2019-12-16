@@ -93,30 +93,89 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 
 	@Override
 	public boolean remove(E e) {
-		if (e == null || this.isEmpty()) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
+		if (this.isEmpty()) {
 			return false;
+		}
+		if (!this.contains(e)) {
+			return false;
+		}
+		Node<E> node = first.getNext();
+		for (int i = 0; i < size; i++) {
+			if (node.isHead() || node.isTail()) {
+				return false;
+			}
+			if (e.equals(node.getItem())) {
+				Node<E> prev = node.getPrev();
+				Node<E> next = node.getNext();
+				next.setPrev(prev);
+				prev.setNext(next);
+				size--;
+				checkRep();
+				return true;
+			}
+			node = node.getNext();
 		}
 		checkRep();
-		return removeLast(e);
+		return false;
 	}
-
-	public boolean removeFirst(E e) {
-		if (e == null || this.isEmpty()) {
+	
+	/**
+	 * Remove the first element of the double linked list
+	 * @return true if and only if the list was changed because of the removal.
+	 */
+	public boolean removeFirst() {
+		if (this.isEmpty()) {
 			return false;
 		}
-		
-		
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (size == 1) {
+			clear();
+			return true;
+		} else if (size == 2) {
+			Node<E> finalNode = this.last.getPrev();
+			this.first.setNext(finalNode);
+			this.last.setPrev(finalNode);
+			size--;
+			checkRep();
+			return true;
+		} else {
+			Node<E> secondNode = this.first.getNext().getNext();
+			this.first.setNext(secondNode);
+			secondNode.setPrev(first);
+			size--;
+			checkRep();
+			return true;
+		}
 	}
 
-	public boolean removeLast(E e) {
-		if (e == null || this.isEmpty()) {
+	/**
+	 * Remove the last element of the double linked list
+	 * @return true if and only if the list was changed because of the removal.
+	 */
+	public boolean removeLast() {
+		if (this.isEmpty()) {
 			return false;
 		}
-		checkRep();
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (size == 1) {
+			clear();
+			return true;
+		} else if (size == 2) {
+			Node<E> firstNode = this.first.getNext();
+			firstNode.setNext(last);
+			firstNode.setPrev(first);
+			size--;
+			checkRep();
+			return true;
+		} else {
+			Node<E> secondNode = this.last.getPrev().getPrev();
+			secondNode.setNext(last);
+			last.setPrev(secondNode);
+			size--;
+			checkRep();
+			return true;
+		}
 	}
 
 	@Override
@@ -144,7 +203,14 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 			return false;
 		}
 		
-		throw new RuntimeException("Not implemented");
+		Node<E> node = this.first.getNext();
+		for (int i = 0; i < size; i++) {
+			if (e.equals(node.getItem())) {
+				return true;
+			}
+			node = node.getNext();
+		}
+		return false;
 	}
 
 	@Override
@@ -152,8 +218,14 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		if (index > size || this.isEmpty()) {
 			throw new IndexOutOfBoundsException();
 		}
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		Node<E> node = this.first.next;
+		for (int i = 0; i < size; i++) {
+			if (i == index) {
+				return node.getItem();
+			}
+			node = node.getNext();
+		}
+		return null;
 	}
 
 	@Override
@@ -162,7 +234,7 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		if (this.isEmpty()) {
 			return null;
 		}
-		return this.first.next.item;
+		return this.first.getNext().getItem();
 	}
 
 	@Override
@@ -171,7 +243,7 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		if (this.isEmpty()) {
 			return null;
 		}
-		return this.last.prev.item;
+		return this.last.getPrev().getItem();
 	}
 
 	private static class Node<E> {

@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import com.gustavo.dataStructure.Linear.MyList;
 import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
 
 /**
@@ -13,7 +14,11 @@ import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
  *
  */
 public class MySinglyLinkedListTest extends MyListTest {
-	private MySingleLinkedList<String> list = new MySingleLinkedList<>();
+	
+	@Override
+	public MyList<String> emptyList() {
+		return new MySingleLinkedList<>();
+	}
 	
 	@Test
 	void testToStringOnEmptyList() {
@@ -35,4 +40,5 @@ public class MySinglyLinkedListTest extends MyListTest {
 		// assert
 		assertEquals(expected, actual);
 	}
+
 }

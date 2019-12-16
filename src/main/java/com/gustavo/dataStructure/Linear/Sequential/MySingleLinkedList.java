@@ -59,9 +59,12 @@ public class MySingleLinkedList<E> implements MyList<E> {
 	public boolean remove(E e) {
 		final E element = e; 
 		if (e == null) {
-			return false;
+			throw new NullPointerException();
 		}
 		if (this.isEmpty()) {
+			return false;
+		}
+		if (! this.contains(element)) {
 			return false;
 		}
 		Node<E> actual = this.first;
