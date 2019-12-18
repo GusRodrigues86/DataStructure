@@ -4,7 +4,7 @@
    Revision History
   		Gustavo, 2019.12.14: Created
  */
-package com.gustavo.dataStructure;
+package com.gustavo.dataStructure.linear.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import com.gustavo.dataStructure.Linear.MyList;
 import com.gustavo.dataStructure.Linear.Sequential.MyCircularlyLinkedList;
 import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
+import com.gustavo.dataStructure.linear.MyListTest;
 
 /**
  * @author Gustavo

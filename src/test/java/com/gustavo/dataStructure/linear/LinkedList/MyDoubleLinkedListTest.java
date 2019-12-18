@@ -4,12 +4,13 @@
    Revision History
   		Gustavo, 2019.12.14: Created
  */
-package com.gustavo.dataStructure;
+package com.gustavo.dataStructure.linear.LinkedList;
 
 import org.junit.jupiter.api.BeforeEach;
 
 import com.gustavo.dataStructure.Linear.MyList;
 import com.gustavo.dataStructure.Linear.Sequential.MyDoubleLinkedList;
+import com.gustavo.dataStructure.linear.MyListTest;
 
 /**
  * @author Gustavo

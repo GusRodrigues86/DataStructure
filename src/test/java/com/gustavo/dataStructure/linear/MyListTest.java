@@ -1,4 +1,4 @@
-package com.gustavo.dataStructure;
+package com.gustavo.dataStructure.linear;
 
 import static org.junit.jupiter.api.Assertions.*;
 
