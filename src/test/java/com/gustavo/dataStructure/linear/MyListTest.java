@@ -21,12 +21,12 @@ public abstract class MyListTest {
 	public abstract MyList<String> emptyList();
 
 	@BeforeEach
-	void setup() {
+	public void setup() {
 		this.list = emptyList();
 	}
 
 	@AfterEach
-	void dispose() {
+	public void dispose() {
 		this.list = null;
 	}
 
@@ -35,7 +35,7 @@ public abstract class MyListTest {
 	 */
 	// size
 	@Test
-	void testEmptyListHasSizeZero() {
+	public void testEmptyListHasSizeZero() {
 		// Assemble
 		int expected = 0;
 		// Act
@@ -45,7 +45,7 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testEmptyListIsEmpty() {
+	public void testEmptyListIsEmpty() {
 		// Act
 		boolean actual = list.isEmpty();
 		// Assert
@@ -54,7 +54,7 @@ public abstract class MyListTest {
 	// contains
 
 	@Test
-	void testContainsReturnFalseOnAnEmptyList() {
+	public void testContainsReturnFalseOnAnEmptyList() {
 		// act
 		boolean actual = list.contains("Test");
 		//
@@ -62,7 +62,7 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testContainsReturnFalseIfNotOnList() {
+	public void testContainsReturnFalseIfNotOnList() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 		// act
@@ -72,7 +72,7 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testContainsReturnTrueIfOnTheList() {
+	public void testContainsReturnTrueIfOnTheList() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 		// act
@@ -86,7 +86,7 @@ public abstract class MyListTest {
 	 */
 	// testing clear
 	@Test
-	void testClearReturnsAnEmptyList() {
+	public void testClearReturnsAnEmptyList() {
 		// assemble
 		// Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 		// act
@@ -97,7 +97,7 @@ public abstract class MyListTest {
 
 	// testing add
 	@Test
-	void testAddElementReturnTrueAndIncreaseSize() {
+	public void testAddElementReturnTrueAndIncreaseSize() {
 		// Assemble
 		String element = "Test Node";
 		int initialSize = list.size();
@@ -114,14 +114,14 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testAddNullReturnsFalseExceptionAndSizeRemains() {
+	public void testAddNullReturnsFalseExceptionAndSizeRemains() {
 		assertFalse(list.add(null));
 		assertTrue(list.isEmpty());
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	void testAddMoreThanOneElement() {
+	public void testAddMoreThanOneElement() {
 		// Assemble
 		String element = "Test";
 		String element2 = "Another Test";
@@ -141,7 +141,7 @@ public abstract class MyListTest {
 
 	// remove
 	@Test
-	void testRemoveFromEmptyReturnFalseAndSizeRemainsZero() {
+	public void testRemoveFromEmptyReturnFalseAndSizeRemainsZero() {
 		// act
 		boolean actual = list.remove("a");
 		int size = list.size();
@@ -152,7 +152,7 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testRemoveInvalidElementReturnsFalse() {
+	public void testRemoveInvalidElementReturnsFalse() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "One More").forEach((e) -> list.add(e));
 		int originalSize = list.size();
@@ -168,14 +168,14 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testRemoveNullReturnFalseAndSizeRemains() {
+	public void testRemoveNullReturnFalseAndSizeRemains() {
 		assertThrows(NullPointerException.class, () -> list.remove(null));
 		assertTrue(list.isEmpty());
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	void testRemoveElementReturnTrueAndSizeDecrease() {
+	public void testRemoveElementReturnTrueAndSizeDecrease() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "One More").forEach((e) -> list.add(e));
 		String element = "One More";
@@ -196,7 +196,7 @@ public abstract class MyListTest {
 	 */
 	// get
 	@Test
-	void testElementRetrival() {
+	public void testElementRetrival() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 		// Act
@@ -206,13 +206,13 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testElementRetrivalFromEmptyListThrowsIndexOutOfBounds() {
+	public void testElementRetrivalFromEmptyListThrowsIndexOutOfBounds() {
 		// assert
 		assertThrows(IndexOutOfBoundsException.class, () -> list.get(0));
 	}
 
 	@Test
-	void testElementRetrivalWithInvalidIndexThrowsIndexOutOfBounds() {
+	public void testElementRetrivalWithInvalidIndexThrowsIndexOutOfBounds() {
 		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 		// assert
 		assertThrows(IndexOutOfBoundsException.class, () -> list.get(10));
@@ -220,7 +220,7 @@ public abstract class MyListTest {
 
 	// first
 	@Test
-	void testFirstOnAnEmptyListReturnNull() {
+	public void testFirstOnAnEmptyListReturnNull() {
 		// act
 		String actual = list.first();
 		// assert
@@ -228,7 +228,7 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testFirstItemIsTheLastInserted() {
+	public void testFirstItemIsTheLastInserted() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 
@@ -241,7 +241,7 @@ public abstract class MyListTest {
 
 	// last
 	@Test
-	void testLastOnAnEmptyListReturnNull() {
+	public void testLastOnAnEmptyListReturnNull() {
 		// act
 		String actual = list.last();
 		// assert
@@ -249,7 +249,7 @@ public abstract class MyListTest {
 	}
 
 	@Test
-	void testLastIsTheFirstInserted() {
+	public void testLastIsTheFirstInserted() {
 		// assemble
 		Arrays.asList("Test", "Another Test", "Another One", "One More").forEach((e) -> list.add(e));
 
