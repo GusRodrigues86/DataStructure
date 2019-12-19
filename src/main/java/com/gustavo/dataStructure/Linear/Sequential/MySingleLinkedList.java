@@ -11,7 +11,7 @@ import com.gustavo.dataStructure.Linear.MyList;
 public class MySingleLinkedList<E> implements MyList<E> {
 	protected int size = 0;
 	protected Node<E> first;
-
+	
 	// Abstract function
 	// AF(x) = Node != null AND size >= 0
 	// Rep Invariant
