@@ -6,6 +6,9 @@ package com.gustavo.dataStructure.Linear.Sequential.Stacks;
  * 
  * The array can hold up to 5000 elements.
  * 
+ * The array will always iterate back from the tail to provide the LIFO
+ * operation
+ * 
  * {@link SimpleStack}
  * 
  * @author Gustavo
@@ -21,8 +24,8 @@ public class StackArray<E> implements SimpleStack<E> {
 	// array.length >= 0 && < 5000: size - 1 != null && size + 1 == null
 	// array.length == 0 if array[0] == null
 	// array.length == 5000 if array[5000] != null
-	
-	// array is wrapped in the StackArray and no external calls can alter the array. 
+
+	// array is wrapped in the StackArray and no external calls can alter the array.
 
 	/**
 	 * Constructs a new StackArray
