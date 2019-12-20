@@ -89,6 +89,7 @@ public class StackArray<E> implements SimpleStack<E> {
 		return this.size;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void clear() {
 		array = (E[]) new Object[CAPACITY]; // Reinitializes the Stack
@@ -101,5 +102,23 @@ public class StackArray<E> implements SimpleStack<E> {
 		checkRep();
 		return (size == 0 && array[0] == null);
 	}
-
+	
+	@Override
+	public String toString() {
+		checkRep();
+		if (isEmpty()) {
+			return "[]";
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (int i = size - 1; i >= 0; i--) {
+			sb.append(array[i]);
+			if (i == 0) {
+				sb.append("]");
+			} else {
+				sb.append(", ");
+			}
+		}
+		return sb.toString();
+	}
 }
