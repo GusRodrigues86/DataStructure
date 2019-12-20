@@ -1,5 +1,7 @@
 package com.gustavo.dataStructure.Linear.Sequential.Stacks;
 
+import java.util.EmptyStackException;
+
 /**
  * This is an implementation of a Stack, a last-in-first-out structure using
  * array.
@@ -48,38 +50,56 @@ public class StackArray<E> implements SimpleStack<E> {
 		if (e == null) {
 			throw new NullPointerException();
 		}
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (size == 5000) {
+			return false;
+		}
+		final E element = e; // prevent external mutation.
+		array[size] = element;
+		size++;
+		checkRep();
+		return true;
 	}
 
 	@Override
 	public E peek() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		checkRep();
+		if (size == 0) {
+			throw new EmptyStackException();
+		}
+		final E element = array[size-1];
+		return element;
 	}
 
 	@Override
 	public E pop() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		checkRep();
+		if (isEmpty()) {
+			throw new EmptyStackException();
+		}
+		final E element = array[size-1];
+		array[size-1] = null;
+		size--;
+		checkRep();
+		return element;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		checkRep();
+		return this.size;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		array = (E[]) new Object[CAPACITY]; // Reinitializes the Stack
+		size = 0;
+		checkRep();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		checkRep();
+		return (size == 0 && array[0] == null);
 	}
 
 }
