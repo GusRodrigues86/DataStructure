@@ -5,6 +5,9 @@ import java.util.EmptyStackException;
 import com.gustavo.dataStructure.Linear.Sequential.MySingleLinkedList;
 
 /**
+ * This is an implementation of a Stack, a last-in-first-out structure using a
+ * Single Linked List.
+ * 
  * @author Gustavo
  *
  */
@@ -18,15 +21,15 @@ public class StackList<E> implements SimpleStack<E> {
 
 	// the single linked list is wrapped in the StackList and there are no external
 	// calls can alter the list.
-	
+
 	/**
-	 * Construct an empty Stack List 
+	 * Construct an empty Stack List
 	 */
 	public StackList() {
 		stack = new MySingleLinkedList<>();
 		checkRep();
 	}
-	
+
 	private void checkRep() {
 		if (stack.isEmpty() && size != 0) {
 			throw new RuntimeException("invalid stack");
@@ -35,7 +38,6 @@ public class StackList<E> implements SimpleStack<E> {
 			throw new RuntimeException("invalid stack");
 		}
 	}
-	
 
 	@Override
 	public boolean push(E e) {
@@ -87,9 +89,9 @@ public class StackList<E> implements SimpleStack<E> {
 	@Override
 	public boolean isEmpty() {
 		checkRep();
-		return (size ==0 && stack.isEmpty());
+		return (size == 0 && stack.isEmpty());
 	}
-	
+
 	@Override
 	public String toString() {
 		return stack.toString();
