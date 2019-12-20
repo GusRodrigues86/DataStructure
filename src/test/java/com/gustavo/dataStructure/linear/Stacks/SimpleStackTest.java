@@ -6,22 +6,41 @@
  */
 package com.gustavo.dataStructure.linear.Stacks;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.gustavo.dataStructure.Linear.Sequential.Stacks.SimpleStack;
 
 /**
- * Test cases for stack
+ * Test cases for stacks that implements SimpleStack
  * @author Gustavo
  *
  */
 public abstract class SimpleStackTest {
-	public SimpleStack<String> stack = emptyInstance();
+	public SimpleStack<String> stack;
 	
 	public abstract SimpleStack<String> emptyInstance();
+	
+	@BeforeEach
+	public void init() {
+		stack = emptyInstance();
+	}
+	
+	@AfterEach
+	public void dispose() {
+		stack = null;
+	}
+	
+	public void veryLargeStack() {
+		for (int i = 0; i < 5000; i++) {
+			stack.push(Integer.valueOf(i).toString());
+		}
+	}
 	
 	/*
 	 * Test cases for push
@@ -46,7 +65,24 @@ public abstract class SimpleStackTest {
 	@Test
 	public void pushElementShouldPeekTheSameElement() {
 		// TODO implement test
+		// Assemble
+		String expected = "test";
+		stack.push(expected);
+		// Act
+		String actual = stack.peek();
+		// Assert
+		assertTrue(expected.equals(actual));
 		fail();
+	}
+	
+	@Test
+	public void pushElementToFullStackReturnFalse() {
+		// assemble
+		veryLargeStack();
+		// act
+		boolean actual = stack.push("last");
+		// assert
+		assertFalse(actual);
 	}
 	/*
 	 * Test cases for peek
