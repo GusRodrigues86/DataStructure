@@ -1,9 +1,7 @@
 
 package com.gustavo.dataStructure.linear.Stacks;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Arrays;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,36 +20,12 @@ public class SimpleStackArrayTest extends SimpleStackTest {
 	}
 	
 	@Test
-	public void testEmptyToString() {
+	public void pushElementToFullStackReturnFalse() {
 		// assemble
-		String expected = "[]";
+		veryLargeStack();
 		// act
-		String actual = stack.toString();
-		// assemble
-		assertEquals(expected, actual);
-	}
-	
-	@Test
-	public void testToString() {
-		// assemble
-		String expected = "[World, Hello]";
-		stack.push("Hello");
-		stack.push("World");
-		// act
-		String actual = stack.toString();
-		// assemble
-		assertEquals(expected, actual);
-	}
-	@Test
-	public void testLargeStackToString() {
-		// assemble
-		String expected = "[?, Today, Doing, You, Are, How, World, Hello]";
-		Arrays.asList("Hello","World","How","Are","You","Doing","Today","?")
-			.forEach(e -> stack.push(e));
-		
-		// act
-		String actual = stack.toString();
-		// assemble
-		assertEquals(expected, actual);
+		boolean actual = stack.push("last");
+		// assert
+		assertFalse(actual, actual + " should be false");
 	}
 }

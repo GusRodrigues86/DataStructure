@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.EmptyStackException;
 
 import org.junit.jupiter.api.AfterEach;
@@ -81,16 +82,6 @@ public abstract class SimpleStackTest {
 		String actual = stack.peek();
 		// Assert
 		assertTrue(expected.equals(actual), expected + " should be equal to " + actual);
-	}
-
-	@Test
-	public void pushElementToFullStackReturnFalse() {
-		// assemble
-		veryLargeStack();
-		// act
-		boolean actual = stack.push("last");
-		// assert
-		assertFalse(actual, actual + " should be false");
 	}
 
 	/*
@@ -185,7 +176,7 @@ public abstract class SimpleStackTest {
 		stack.pop();
 		int actual = stack.size();
 		// assert
-		assertTrue(actual < before, 
+		assertTrue(actual < before,
 				"Size need to decrease by 1 after push. It was " + before + " and decreased to " + actual);
 	}
 
@@ -200,8 +191,7 @@ public abstract class SimpleStackTest {
 		// act
 		stack.clear();
 		int actual = stack.size();
-		assertTrue(actual < before, 
-				"Size need to decrease to 0 after clear. But decreased to " + actual);
+		assertTrue(actual < before, "Size need to decrease to 0 after clear. But decreased to " + actual);
 		assertTrue(actual == 0, "Size need to decrease to 0 after clear. But decreased to " + actual);
 	}
 
@@ -243,6 +233,44 @@ public abstract class SimpleStackTest {
 		actual = stack.isEmpty();
 		// assert
 		assertTrue(actual, "Empty stack must return true always.");
-		
+
+	}
+
+	/*
+	 * ToString Tests
+	 */
+
+	@Test
+	public void testEmptyToString() {
+		// assemble
+		String expected = "[]";
+		// act
+		String actual = stack.toString();
+		// assemble
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testToString() {
+		// assemble
+		String expected = "[World, Hello]";
+		stack.push("Hello");
+		stack.push("World");
+		// act
+		String actual = stack.toString();
+		// assemble
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testLargeStackToString() {
+		// assemble
+		String expected = "[?, Today, Doing, You, Are, How, World, Hello]";
+		Arrays.asList("Hello", "World", "How", "Are", "You", "Doing", "Today", "?").forEach(e -> stack.push(e));
+
+		// act
+		String actual = stack.toString();
+		// assemble
+		assertEquals(expected, actual);
 	}
 }
