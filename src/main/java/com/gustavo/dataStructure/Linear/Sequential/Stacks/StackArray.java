@@ -19,11 +19,9 @@ public class StackArray<E> implements SimpleStack<E> {
 	private static final int CAPACITY = 5000;
 	private E[] array;
 
-	// AF(array) =
-	// Rep Invariant array.length == size
-	// array.length >= 0 && < 5000: size - 1 != null && size + 1 == null
-	// array.length == 0 if array[0] == null
-	// array.length == 5000 if array[5000] != null
+	// AF(array) = array != null && (size <= 5000 && size >= 0)
+	// Rep Invariant
+	// array.length == 5000 && 0 <= size() <= 5000
 
 	// array is wrapped in the StackArray and no external calls can alter the array.
 
@@ -33,10 +31,23 @@ public class StackArray<E> implements SimpleStack<E> {
 	@SuppressWarnings("unchecked")
 	public StackArray() {
 		array = (E[]) new Object[CAPACITY];
+		checkRep();
+	}
+
+	private void checkRep() {
+		if (array == null) {
+			throw new RuntimeException("Stack is invalid");
+		}
+		if (size < 0 || size > 5000) {
+			throw new RuntimeException("Stack is invalid");
+		}
 	}
 
 	@Override
 	public boolean push(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
 		// TODO Auto-generated method stub
 		throw new RuntimeException("Not implemented");
 	}
