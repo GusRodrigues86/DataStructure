@@ -31,6 +31,10 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		this(16);
 	}
 	
+	/**
+	 * Creates a new Array and reset all parameters.
+	 * @param capacity the capacity of the new queue array
+	 */
 	@SuppressWarnings("unchecked")
 	private MyQueueArray(int capacity) {
 		this.queue = (E[]) new Object[capacity];
@@ -64,20 +68,36 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		if (e == null) {
 			throw new NullPointerException();
 		}
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if (size == queue.length) {
+			return false;
+		}
+		size++;
+		final E copy = e;
+		queue[headIndex] = copy;
+		if (headIndex != queue.length - 1) {
+			headIndex++;			
+		}
+		checkRep();
+		return true;
 	}
 
 	@Override
 	public E dequeue() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		checkRep();
+		final E copy = queue[tailIndex];
+		tailIndex++;
+		size--;
+		return copy;
+		
 	}
 
 	@Override
 	public E peek() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		if(isEmpty()) {
+			return null;
+		}
+		final E copy = queue[tailIndex];
+		return copy;
 	}
 
 	@Override
@@ -85,8 +105,16 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		if (e == null) {
 			throw new NullPointerException();
 		}
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		final E compare = e;
+		checkRep();
+		for (int i = 0; i < queue.length; i++) {
+			E element = queue[i];
+			if (compare.equals(element)) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	@Override
@@ -94,8 +122,16 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		if (e == null) {
 			throw new NullPointerException();
 		}
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		final E toRemove = e;
+		checkRep();
+		for (int i = 0; i < queue.length; i++) {
+			E data = queue[i];
+			if (data.equals(toRemove)) {
+				// TODO rearrange the array
+				throw new RuntimeException("Not implemented");
+			}
+		}
+		return false;
 	}
 
 	@Override
