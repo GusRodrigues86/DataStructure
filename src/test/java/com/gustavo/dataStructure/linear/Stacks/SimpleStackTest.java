@@ -1,9 +1,3 @@
-/*
-   Description of this class
-   
-   Revision History
-  		Gustavo, 2019.12.19: Created
- */
 package com.gustavo.dataStructure.linear.Stacks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
