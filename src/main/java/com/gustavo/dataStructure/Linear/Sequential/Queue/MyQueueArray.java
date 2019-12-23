@@ -61,6 +61,9 @@ public class MyQueueArray<E> implements MyQueue<E> {
 
 	@Override
 	public boolean enqueue(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
 		// TODO Auto-generated method stub
 		throw new RuntimeException("Not implemented");
 	}
@@ -79,12 +82,18 @@ public class MyQueueArray<E> implements MyQueue<E> {
 
 	@Override
 	public boolean contains(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
 		// TODO Auto-generated method stub
 		throw new RuntimeException("Not implemented");
 	}
 
 	@Override
 	public boolean remove(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
 		// TODO Auto-generated method stub
 		throw new RuntimeException("Not implemented");
 	}
@@ -96,14 +105,17 @@ public class MyQueueArray<E> implements MyQueue<E> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		checkRep();
+		return this.size;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented");
+		this.queue = (E[]) new Object[16];
+		this.tailIndex = 0;
+		this.headIndex = 0;
+		this.size = 0;
+		checkRep();
 	}
 
 }
