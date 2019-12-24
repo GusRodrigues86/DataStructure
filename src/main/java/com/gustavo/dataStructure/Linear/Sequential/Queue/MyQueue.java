@@ -50,15 +50,6 @@ public interface MyQueue<E> {
 	boolean contains(E e);
 
 	/**
-	 * Remove element from the Queue if present.
-	 * 
-	 * @param e element to be removed.
-	 * @return true if and only if the Queue was changed because of the removal.
-	 * @throws NullPointerException if supplied element is null.
-	 */
-	boolean remove(E e);
-
-	/**
 	 * Checks if the Queue is empty.
 	 * 
 	 * @return true if and only if the stack is empty.

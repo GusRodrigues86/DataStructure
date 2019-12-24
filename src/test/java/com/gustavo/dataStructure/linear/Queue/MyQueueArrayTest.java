@@ -33,16 +33,17 @@ public class MyQueueArrayTest<E> implements MyQueueTests<E> {
 		return (List<E>) Arrays.asList("Test", "Case", "Hello", "World", "End");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public E invalidElement() {
 		return (E) "Invalid";
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void enqueueMoreThan16ReturnFalse() {
 		MyQueue<E> queue = createQueue();
 		elementsToTest().forEach(e -> queue.enqueue(e));
-		@SuppressWarnings("unchecked")
 		List<E> extra = (List<E>) Arrays.asList("Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
 				"Sixteen");
 		extra.forEach(e -> queue.enqueue(e));

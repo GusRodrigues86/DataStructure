@@ -115,6 +115,23 @@ public interface MyQueueTests<E> {
 		// assert
 		assertEquals(firstElement, dequeueElement, firstElement + " must be equal to " + dequeueElement);
 	}
+	
+	@Test
+	default void queueDequeueReturnElementsInOrdelyManner() {
+		MyQueue<E> queue = createQueue();
+		elementsToTest().forEach(e -> queue.enqueue(e));
+		int size = queue.size();
+		
+		// assert
+		for(E element : elementsToTest()) {
+			E item = queue.dequeue();
+			size--;
+			assertEquals(item, element, item + " must be equal to "+ element);
+			assertEquals(size, queue.size(), "Size must be equal to " + queue.size() + " but was "+ size);
+		}
+
+		assertTrue(queue.isEmpty(), "After dumping the queue, list must be empty");
+	}
 
 	@Test
 	default void queueDequeueReturnNullOnEmptyQueue() {
@@ -174,40 +191,6 @@ public interface MyQueueTests<E> {
 		boolean remove = queue.contains(toRemove);
 		// assert
 		assertTrue(remove, "Must return true when the element is on the Queue");
-	}
-
-	/*
-	 * Removal test
-	 */
-
-	@Test
-	default void queueThrowNPEForRemoveOfNull() {
-		MyQueue<E> queue = createQueue();
-		assertThrows(NullPointerException.class, () -> queue.remove(null));
-		assertTrue(queue.isEmpty());
-		assertTrue(queue.size() == 0);
-	}
-
-	@Test
-	default void removeElementThatIsNotOnTheQueueReturnsFalse() {
-		MyQueue<E> queue = createQueue();
-		elementsToTest().forEach(e -> queue.enqueue(e));
-		E e = invalidElement();
-
-		boolean result = queue.remove(e);
-
-		assertFalse(result);
-	}
-
-	@Test
-	default void removeElementThatIsOnTheQueueReturnsTrue() {
-		MyQueue<E> queue = createQueue();
-		elementsToTest().forEach(e -> queue.enqueue(e));
-		E e = elementsToTest().get(new Random().nextInt(elementsToTest().size()));
-
-		boolean result = queue.remove(e);
-
-		assertTrue(result);
 	}
 
 }

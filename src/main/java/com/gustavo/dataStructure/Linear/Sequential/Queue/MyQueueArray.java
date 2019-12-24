@@ -1,63 +1,59 @@
 package com.gustavo.dataStructure.Linear.Sequential.Queue;
 
+import java.util.ArrayList;
+
 /**
- * The MyQueueArray uses a fixed array to hold elements on it.
- * The size of the queue is extreme low -> 16 elements.
+ * The MyQueueArray uses a fixed array to hold elements on it. The size of the
+ * queue is extreme low -> 16 elements.
  * 
  * @author Gustavo
  *
  */
 public class MyQueueArray<E> implements MyQueue<E> {
-	
+
 	private E[] queue;
 	private int headIndex;
-	private int tailIndex;
 	private int size;
-	
-	// AF(queue, head, tailIndex) =
-	// queue != null
-	// headIndex >= 0 && tailIndex >= 0
-	
-	// Rep Invariance 
+
+	// AF(queue, headIndex) = queue != null && headIndex >= 0
+
+	// Rep Invariance
 	// queue.length == 16 && queue != null
 	// headIndex >= 0 && headIndex < 16
-	// tailIndex >= 0 && tailIndex < 16
 	// size < queue.length && size >= 0
-	
+
 	/**
 	 * Constructs a new Queue with max capacity of 16 elements
 	 */
 	public MyQueueArray() {
 		this(16);
 	}
-	
+
 	/**
 	 * Creates a new Array and reset all parameters.
+	 * 
 	 * @param capacity the capacity of the new queue array
 	 */
 	@SuppressWarnings("unchecked")
 	private MyQueueArray(int capacity) {
 		this.queue = (E[]) new Object[capacity];
-		this.tailIndex = 0;
 		this.headIndex = 0;
 		this.size = 0;
 		checkRep();
 	}
-	
+
 	private void checkRep() {
 		// queue.length == 16
 		// headIndex >= 0 && headIndex < 16
-		// tailIndex >= 0 && tailIndex < 16
 		// size < queue.length && size >= 0
 		if (queue.length != 16) {
 			throw new RuntimeException("Invalid queue");
 		}
-		
-		if (!(headIndex < 16 && headIndex >= 0) || 
-			!(tailIndex < 16 && tailIndex >= 0)) {
+
+		if (!(headIndex < 16 && headIndex >= 0)) {
 			throw new RuntimeException("Invalid queue");
 		}
-		
+
 		if (size > queue.length || size < 0) {
 			throw new RuntimeException("Invalid queue");
 		}
@@ -71,12 +67,11 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		if (size == queue.length) {
 			return false;
 		}
-		size++;
+
 		final E copy = e;
-		queue[headIndex] = copy;
-		if (headIndex != queue.length - 1) {
-			headIndex++;			
-		}
+		int available = (headIndex + size) % this.queue.length;
+		queue[available] = copy;
+		size++;
 		checkRep();
 		return true;
 	}
@@ -84,19 +79,24 @@ public class MyQueueArray<E> implements MyQueue<E> {
 	@Override
 	public E dequeue() {
 		checkRep();
-		final E copy = queue[tailIndex];
-		tailIndex++;
+		if (this.isEmpty()) {
+			return null;
+		}
+		final E copy = queue[headIndex];
+		queue[headIndex] = null;
+		headIndex = (headIndex + 1) % queue.length;
 		size--;
+		checkRep();
 		return copy;
-		
+
 	}
 
 	@Override
 	public E peek() {
-		if(isEmpty()) {
+		if (isEmpty()) {
 			return null;
 		}
-		final E copy = queue[tailIndex];
+		final E copy = queue[headIndex];
 		return copy;
 	}
 
@@ -114,29 +114,11 @@ public class MyQueueArray<E> implements MyQueue<E> {
 			}
 		}
 		return false;
-
-	}
-
-	@Override
-	public boolean remove(E e) {
-		if (e == null) {
-			throw new NullPointerException();
-		}
-		final E toRemove = e;
-		checkRep();
-		for (int i = 0; i < queue.length; i++) {
-			E data = queue[i];
-			if (data.equals(toRemove)) {
-				// TODO rearrange the array
-				throw new RuntimeException("Not implemented");
-			}
-		}
-		return false;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return (tailIndex == headIndex && queue[headIndex] == null) ? true : false;
+		return (size == 0) ? true : false;
 	}
 
 	@Override
@@ -145,10 +127,10 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		return this.size;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void clear() {
 		this.queue = (E[]) new Object[16];
-		this.tailIndex = 0;
 		this.headIndex = 0;
 		this.size = 0;
 		checkRep();
