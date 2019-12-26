@@ -1,7 +1,5 @@
 package com.gustavo.dataStructure.Linear.Sequential.Queue;
 
-import java.util.ArrayList;
-
 /**
  * The MyQueueArray uses a fixed array to hold elements on it. The size of the
  * queue is extreme low -> 16 elements.
@@ -135,5 +133,5 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		this.size = 0;
 		checkRep();
 	}
-
+	
 }
