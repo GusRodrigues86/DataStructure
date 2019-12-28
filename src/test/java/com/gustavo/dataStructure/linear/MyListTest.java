@@ -157,7 +157,7 @@ public abstract class MyListTest {
 		Arrays.asList("Test", "Another Test", "One More").forEach((e) -> list.add(e));
 		int originalSize = list.size();
 		// act
-		boolean actual = list.remove(" ");
+		boolean actual = list.remove("FakeCon");
 		// assert
 		// act
 		int finalSize = list.size();

@@ -6,6 +6,7 @@ import com.gustavo.dataStructure.Linear.MyList;
 
 /**
  * Implementation of a Double Linked List Data Structure.
+ * 
  * @author Gustavo
  *
  */
@@ -27,10 +28,9 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		this.first = new Node<>(null, null, null);
 		this.last = new Node<>(null, null, null);
 	}
-	
+
 	/**
-	 * Rep Invariant
-	 * 	size >= 0 && first == isHead && last == isTail
+	 * Rep Invariant size >= 0 && first == isHead && last == isTail
 	 */
 	private void checkRep() {
 		if (size < 0 && !this.first.isHead() && !this.last.isTail()) {
@@ -43,9 +43,10 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		checkRep();
 		return addFirst(e);
 	}
-	
+
 	/**
 	 * Add the element to the start of the list.
+	 * 
 	 * @param e element to be added.
 	 * @return true if and only if the list was changed because of the insertion
 	 */
@@ -53,20 +54,22 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		if (e == null) {
 			return false;
 		}
-		boolean listWasEmpty = this.isEmpty();
-		Node<E> newFirst = new Node<E>(first, e, first.next);
-		first.setNext(newFirst);
+		final E copy = e; // avoid exposure.
 		
-		if (listWasEmpty) {
+		Node<E> newFirst = new Node<E>(first, copy, first.next);
+
+		if (this.isEmpty()) {
 			last.setPrev(newFirst);
 		}
+		first.setNext(newFirst);
 		size++;
 		checkRep();
 		return true;
 	}
-	
+
 	/**
 	 * Add the element to the end of the list.
+	 * 
 	 * @param e element to be added.
 	 * @return true if and only if the list was changed because of the insertion
 	 */
@@ -74,13 +77,19 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		if (e == null) {
 			return false;
 		}
-		boolean listWasEmpty = this.isEmpty();
-		Node<E> newLast = new Node<E>(last.prev, e, last);
-		last.prev = newLast;
-
-		if (listWasEmpty) {
-			first.setNext(newLast);
+		final E copy = e; // avoid exposure.
+		Node<E> node = new Node<E>(first, copy, last);
+		
+		if (this.isEmpty()) {
+			first.setNext(node);
+			last.setPrev(node);
+			size++;
+			checkRep();
+			return true;
 		}
+		node = new Node<E>(last.getPrev(), copy, last);
+		last.getPrev().setNext(node);
+		last.setPrev(node);
 		size++;
 		checkRep();
 		return true;
@@ -116,9 +125,10 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		checkRep();
 		return false;
 	}
-	
+
 	/**
 	 * Remove the first element of the double linked list
+	 * 
 	 * @return true if and only if the list was changed because of the removal.
 	 */
 	public boolean removeFirst() {
@@ -147,6 +157,7 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 
 	/**
 	 * Remove the last element of the double linked list
+	 * 
 	 * @return true if and only if the list was changed because of the removal.
 	 */
 	public boolean removeLast() {
@@ -197,7 +208,7 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		if (e == null || this.isEmpty()) {
 			return false;
 		}
-		
+
 		Node<E> node = this.first.getNext();
 		for (int i = 0; i < size; i++) {
 			if (e.equals(node.getItem())) {
@@ -241,7 +252,24 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 		return this.last.getPrev().getItem();
 	}
 
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		Node<E> copy = first.next;
+		for (int i = 0; i < this.size; i++) {
+			sb.append(copy.item);
+			if (i+1 != size) {
+				sb.append(", ");
+			}
+			copy = copy.getNext();
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+
 	private static class Node<E> {
+
 		private E item;
 		private Node<E> next;
 		private Node<E> prev;
@@ -309,8 +337,8 @@ public class MyDoubleLinkedList<E> implements MyList<E> {
 
 		@Override
 		public boolean equals(Object obj) {
+			@SuppressWarnings("unchecked")
 			Node<E> other = (Node<E>) obj;
-
 			return item.equals(other);
 		}
 
