@@ -17,7 +17,7 @@ package com.gustavo.dataStructure.Linear;
 public interface MyList<E> {
 	// Mutators
 	/**
-	 * Add the element to the end of the list.
+	 * Add the element to the list.
 	 * 
 	 * @param e element to be added
 	 * @return true if and only if the list was changed because of the insertion
