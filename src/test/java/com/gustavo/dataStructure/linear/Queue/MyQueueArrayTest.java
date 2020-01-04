@@ -1,12 +1,6 @@
-/*
-   Description of this class
-   
-   Revision History
-  		Gustavo, 2019.12.23: Created
- */
 package com.gustavo.dataStructure.linear.Queue;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +11,8 @@ import com.gustavo.dataStructure.Linear.Sequential.Queue.MyQueue;
 import com.gustavo.dataStructure.Linear.Sequential.Queue.MyQueueArray;
 
 /**
+ * Test implementation specific for the array version of the queue
+ * 
  * @author Gustavo
  *
  */
@@ -41,17 +37,16 @@ public class MyQueueArrayTest<E> implements MyQueueTests<E> {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void enqueueMoreThan16ReturnFalse() {
+	public void enqueueWillKeppExpanding() {
 		MyQueue<E> queue = createQueue();
 		elementsToTest().forEach(e -> queue.enqueue(e));
-		List<E> extra = (List<E>) Arrays.asList("Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
-				"Sixteen");
+		List<E> extra = (List<E>) Arrays.asList("Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen",
+				"Fourteen", "Fifteen", "Sixteen");
 		extra.forEach(e -> queue.enqueue(e));
 		E e = (E) "Oops";
 		// act
 		boolean result = queue.enqueue(e);
 		// assert
-		assertFalse(result, "Cannot add more than 16 elements");
+		assertTrue(result, "Must allow more than 16 elements");
 	}
-
 }

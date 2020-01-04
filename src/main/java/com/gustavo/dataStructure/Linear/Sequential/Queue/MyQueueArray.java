@@ -12,12 +12,13 @@ public class MyQueueArray<E> implements MyQueue<E> {
 	private E[] queue;
 	private int headIndex;
 	private int size;
+	private int capacity;
 
 	// AF(queue, headIndex) = queue != null && headIndex >= 0
 
 	// Rep Invariance
-	// queue.length == 16 && queue != null
-	// headIndex >= 0 && headIndex < 16
+	// queue.length >= 16 && queue != null
+	// headIndex >= 0 && headIndex < capacity
 	// size < queue.length && size >= 0
 
 	/**
@@ -37,18 +38,19 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		this.queue = (E[]) new Object[capacity];
 		this.headIndex = 0;
 		this.size = 0;
+		this.capacity = capacity;
 		checkRep();
 	}
 
 	private void checkRep() {
-		// queue.length == 16
-		// headIndex >= 0 && headIndex < 16
+		// queue.length >= 16
+		// headIndex >= 0 && headIndex < capacity
 		// size < queue.length && size >= 0
-		if (queue.length != 16) {
+		if (queue.length < 16) {
 			throw new RuntimeException("Invalid queue");
 		}
 
-		if (!(headIndex < 16 && headIndex >= 0)) {
+		if (!(headIndex < queue.length && headIndex >= 0)) {
 			throw new RuntimeException("Invalid queue");
 		}
 
@@ -56,14 +58,59 @@ public class MyQueueArray<E> implements MyQueue<E> {
 			throw new RuntimeException("Invalid queue");
 		}
 	}
+	
+	/**
+	 * Resizes an array to the double of the current capacity
+	 */
+	@SuppressWarnings("unchecked")
+	private void increaseArrayCapacity() {
+		final E[] copy = queue;
+		final int newCapacity;
+		// prevents size overflow
+		if (capacity > (Integer.MAX_VALUE / 2)) {
+			newCapacity = Integer.MAX_VALUE;
+		} else {
+			newCapacity = capacity * 2;			
+		}
+		
+		E[] newQueue = (E[]) new Object[newCapacity];
+		for (int i = 0; i < copy.length; i++) {
+			newQueue[i] = copy[i];
+		}
+		
+		this.queue = newQueue;
+	}
+	
+	/**
+	 * Resizes an array to the half of the current capacity
+	 */
+	@SuppressWarnings("unchecked")
+	private void reduceArrayCapacity() {
+		final E[] copy = queue;
+		final int newCapacity;
+		// min size is 16
+		if ((capacity / 2) < 16) {
+			newCapacity = 16;
+		} else {
+			newCapacity = capacity / 2;			
+		}
+		E[] newQueue = (E[]) new Object[newCapacity];
+		for (int i = 0; i < newQueue.length; i++) {
+			newQueue[i] = copy[i];
+		}
+
+		this.queue = newQueue;
+		
+	}
 
 	@Override
 	public boolean enqueue(E e) {
 		if (e == null) {
 			throw new NullPointerException();
 		}
+		// array resize
 		if (size == queue.length) {
-			return false;
+			increaseArrayCapacity();
 		}
 
 		final E copy = e;
@@ -79,6 +126,10 @@ public class MyQueueArray<E> implements MyQueue<E> {
 		checkRep();
 		if (this.isEmpty()) {
 			return null;
+		}
+		// array resize
+		if ((capacity - 1) < (capacity / 2)) {
+			reduceArrayCapacity();
 		}
 		final E copy = queue[headIndex];
 		queue[headIndex] = null;
