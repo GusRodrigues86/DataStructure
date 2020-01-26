@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class CountingInversion {
 
-	private int counter = 0;
+	private long counter = 0;
 
 	/**
 	 * Count how many inversions one array of integers has. an inversion is when the
@@ -23,7 +23,7 @@ public class CountingInversion {
 	 * @param arr the array to evaluate
 	 * @return the total of inversions in the array
 	 */
-	public int inversion(int[] arr) {
+	public long inversion(int[] arr) {
 		return sortAndCount(arr);
 	}
 
@@ -33,7 +33,7 @@ public class CountingInversion {
 	 * @param arr
 	 * @return
 	 */
-	private int sortAndCount(int[] arr) {
+	private long sortAndCount(int[] arr) {
 
 		// compare permuted array and the actual.
 		// count offers O(n log n)

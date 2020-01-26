@@ -31,7 +31,7 @@ public class TestCountingInversion {
 		// assemble
 		int[] array = {1};
 		// act
-		int count = ci.inversion(array);
+		long count = ci.inversion(array);
 		String assertion = "count must be equal to "+1+" but was "+count;
 		//
 		assertEquals(0, count, assertion);
@@ -42,7 +42,7 @@ public class TestCountingInversion {
 		// assemble
 		int[] array = {1,2};
 		// act
-		int count = ci.inversion(array);
+		long count = ci.inversion(array);
 		String assertion = "count must be equal to "+0+" but was "+count;
 		// assert
 		assertEquals(0, count, assertion);
@@ -53,7 +53,7 @@ public class TestCountingInversion {
 		// assemble
 		int[] array = {2,1};
 		// act
-		int count = ci.inversion(array);
+		long count = ci.inversion(array);
 		String assertion = "count must be equal to "+1+" but was "+count;
 		// assert
 		assertEquals(1, count, assertion);
@@ -65,7 +65,7 @@ public class TestCountingInversion {
 		int[] array = {3,2,1};
 		int expected = 3;
 		// act
-		int count = ci.inversion(array);
+		long count = ci.inversion(array);
 		String assertion = "count must be equal to "+expected+" but was "+count;
 		// assert
 		assertEquals(expected, count, assertion);
@@ -77,7 +77,7 @@ public class TestCountingInversion {
 		int[] array = {1,3,5,2,4,6};
 		int expected = 3;
 		// act
-		int count = ci.inversion(array);
+		long count = ci.inversion(array);
 		String assertion = "count must be equal to "+expected+" but was "+count;
 		// assert
 		assertEquals(expected, count, assertion);
@@ -89,9 +89,10 @@ public class TestCountingInversion {
 		int[] array = {10,3,4,2,5,7,9,11};
 		int expected = 8;
 		// act
-		int count = ci.inversion(array);
+		long count = ci.inversion(array);
 		String assertion = "count must be equal to "+expected+" but was "+count;
 		// assert
 		assertEquals(expected, count, assertion);
 	}
+	
 }
